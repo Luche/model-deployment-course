@@ -47,6 +47,9 @@ model_deployment_lab/
 │   ├── churn_fastapi.py                # FastAPI endpoint for Churn prediction
 │   ├── churn_streamlit.py              # Streamlit UI → calls FastAPI
 │
+├── session11_oop_basics/
+│   └── oop_basics.py                  # OOP fundamentals: classes, inheritance, encapsulation
+│
 └── session12_oop_classification/
     ├── mainprogamoop.py                # DataHandler + ModelHandler OOP classes
     └── usepickle.py                    # Load and run inference from pickle
@@ -233,6 +236,22 @@ curl -X POST "http://127.0.0.1:8000/predict" \
           "SupportCalls": 2, "PaymentDelay": 5, "SubscriptionType": "Premium",
           "ContractLength": "Annual", "TotalSpend": 500, "LastInteraction": 7}'
 ```
+
+---
+
+## Session 11 – OOP Basics
+
+**Topics:** Classes and objects, `__init__` and `self`, instance vs class attributes,
+`__str__`, inheritance and `super()`, encapsulation (`_` convention),
+bridge preview of the DataHandler/ModelHandler pattern used in Session 12
+
+```bash
+cd session11_oop_basics
+python oop_basics.py
+```
+
+The script runs through 6 progressive sections with printed output, ending with a
+mini `SimpleDataHandler` + `SimpleModelHandler` example that directly previews Session 12.
 
 ---
 
