@@ -9,10 +9,11 @@ import joblib
 import numpy as np
 import pandas as pd
 import mlflow
+from pathlib import Path
 
 # Load preprocessor and model
-scaler = joblib.load("preprocessor.pkl")
-model  = joblib.load("model.pkl")
+scaler = joblib.load(Path(__file__).parent/"preprocessor.pkl")
+model  = joblib.load(Path(__file__).parent/"model.pkl")
 # model  = mlflow.sklearn.load_model("models:/../iris_rf/latest")
 
 def main():
