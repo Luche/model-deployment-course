@@ -23,7 +23,7 @@ def preprocess():
 
     scaler = StandardScaler()
     X_train_scaled = pd.DataFrame(scaler.fit_transform(X_train)).reset_index(drop=True)
-    joblib.dump(scaler, "preprocessor.pkl")
+    joblib.dump(scaler, "artifacts/preprocessor.pkl")
 
     X_test_scaled = pd.DataFrame(scaler.transform(X_test)).reset_index(drop=True)
 

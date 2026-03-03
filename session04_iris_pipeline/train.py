@@ -23,7 +23,7 @@ def train(train_scaled):
         mlflow.log_param("criterion", "gini")
         mlflow.log_param("max_depth", 4)
         mlflow.sklearn.log_model(sk_model=model, name="model", registered_model_name="iris_rf")
-        joblib.dump(model, "model.pkl")
+        joblib.dump(model, "artifacts/model.pkl")
         print(f"Model trained. Run ID: {run.info.run_id}")
         return run.info.run_id
 

@@ -12,8 +12,8 @@ import mlflow
 from pathlib import Path
 
 # Load preprocessor and model
-scaler = joblib.load(Path(__file__).parent/"preprocessor.pkl")
-model  = joblib.load(Path(__file__).parent/"model.pkl")
+scaler = joblib.load(Path(__file__).parent/"artifacts/preprocessor.pkl")
+model  = joblib.load(Path(__file__).parent/"artifacts/model.pkl")
 # model  = mlflow.sklearn.load_model("models:/../iris_rf/latest")
 
 def main():
