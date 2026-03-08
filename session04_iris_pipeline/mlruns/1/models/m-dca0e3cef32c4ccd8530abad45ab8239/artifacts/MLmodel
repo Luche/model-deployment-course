@@ -1,0 +1,23 @@
+artifact_path: /Users/henrylucky/Documents/HoP/CO DS/Code Model Deployment/model_deployment_lab/session04_iris_pipeline/mlruns/1/models/m-dca0e3cef32c4ccd8530abad45ab8239/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.12
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.8.0
+    skops_trusted_types: null
+mlflow_version: 3.10.0
+model_id: m-dca0e3cef32c4ccd8530abad45ab8239
+model_size_bytes: 137333
+model_uuid: m-dca0e3cef32c4ccd8530abad45ab8239
+prompts: null
+run_id: 738833cbb14041548871e7d4fe915fef
+utc_time_created: '2026-03-03 17:14:02.298504'
