@@ -1,17 +1,3 @@
-"""
-Session 05 – Entry point: Approach B (sklearn Pipeline).
-Run: python main_pipeline.py
-
-Steps:
-  1. Ingest data
-  2. Load CSV (with column rename), split into features / target, train/test split
-  3. Build and train end-to-end sklearn Pipeline
-  4. Evaluate and apply quality gate
-
-One fewer step than main_manual.py: the pipeline handles preprocessing internally,
-so there is no separate preprocessing step.
-"""
-
 from config.config import ACCURACY_THRESHOLD
 from src.data.loader import ingest_data, load_frame, split_features_target, split_train_test
 from src.pipelines.sklearn_pipeline import build_churn_pipeline

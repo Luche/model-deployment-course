@@ -1,15 +1,6 @@
-"""
-Session 05 – Data loading and splitting.
-Covers: synthetic generation, ingestion, CSV loading, train/test split.
-"""
-
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from config.config import (
     DATA_RAW_DIR, DATA_ING_DIR, TARGET_COL, DROP_COLS,
@@ -18,7 +9,6 @@ from config.config import (
 
 
 def generate_synthetic_churn(n: int = 2000, seed: int = 42) -> pd.DataFrame:
-    """Generate a synthetic customer churn dataset (semicolon-delimited)."""
     rng = np.random.default_rng(seed)
     data = {
         "CustomerID":         range(1, n + 1),
@@ -38,7 +28,6 @@ def generate_synthetic_churn(n: int = 2000, seed: int = 42) -> pd.DataFrame:
 
 
 def ingest_data() -> None:
-    """Generate synthetic data if raw CSV is missing, validate, copy to ingested/."""
     DATA_RAW_DIR.mkdir(parents=True, exist_ok=True)
     DATA_ING_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -58,7 +47,6 @@ def ingest_data() -> None:
 
 
 def load_frame(rename_for_pipeline: bool = False) -> pd.DataFrame:
-    """Read ingested CSV, optionally applying the pipeline rename map."""
     path = DATA_ING_DIR / "customer_churn.csv"
     df = pd.read_csv(path, sep=";")
     if rename_for_pipeline:
@@ -67,13 +55,11 @@ def load_frame(rename_for_pipeline: bool = False) -> pd.DataFrame:
 
 
 def split_features_target(df: pd.DataFrame):
-    """Return (X, y) by dropping DROP_COLS and TARGET_COL."""
     X = df.drop(DROP_COLS + [TARGET_COL], axis=1)
     y = df[TARGET_COL]
     return X, y
 
 
 def split_train_test(X: pd.DataFrame, y: pd.Series):
-    """Stratified train/test split using config constants."""
     return train_test_split(X, y, test_size=TEST_SIZE,
                             random_state=RANDOM_STATE, stratify=y)

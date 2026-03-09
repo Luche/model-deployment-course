@@ -1,16 +1,3 @@
-"""
-Session 05 – Entry point: Approach A (Manual / NoPipeline).
-Run: python main_manual.py
-
-Steps:
-  1. Ingest data
-  2. Load CSV and split into features / target
-  3. Train/test split
-  4. Manual preprocessing (impute + encode)
-  5. Train RandomForest
-  6. Evaluate and apply quality gate
-"""
-
 from config.config import ACCURACY_THRESHOLD
 from src.data.loader import ingest_data, load_frame, split_features_target, split_train_test
 from src.pipelines.manual_pipeline import run_preprocessing

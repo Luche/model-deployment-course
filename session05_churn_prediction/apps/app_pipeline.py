@@ -1,13 +1,3 @@
-"""
-Session 05 – Streamlit App: Approach B (sklearn Pipeline).
-Single pipeline artifact handles all preprocessing + prediction.
-Run with: streamlit run apps/app_pipeline.py
-"""
-
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-
 import pandas as pd
 import streamlit as st
 
@@ -40,7 +30,6 @@ def main():
     total_spend      = st.number_input("Total Spend",                   0, 1_000_000)
     last_interaction = st.number_input("Last Interaction (days ago)",   0, 30)
 
-    # Column names must match the post-rename names used during training
     data = {
         "Age":              int(age),
         "Gender":           gender,

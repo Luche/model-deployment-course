@@ -1,14 +1,3 @@
-"""
-Session 05 – Streamlit App: Approach A (Manual / NoPipeline).
-Loads four artifacts separately and applies the same sklearn transformers
-as the Pipeline app — just called step-by-step instead of inside a Pipeline.
-Run with: streamlit run apps/app_manual.py
-"""
-
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-
 import pandas as pd
 import streamlit as st
 
@@ -60,11 +49,8 @@ def main():
     }
     df = pd.DataFrame([data])
 
-    # Step 1: impute (same transformers as Pipeline, just called manually)
     df[NUM_FEATURES] = num_imputer.transform(df[NUM_FEATURES])
     df[CAT_FEATURES] = cat_imputer.transform(df[CAT_FEATURES])
-
-    # Step 2: encode (same transformer as Pipeline, just called manually)
     df[CAT_FEATURES] = cat_encoder.transform(df[CAT_FEATURES])
 
     if st.button("Make Prediction"):
