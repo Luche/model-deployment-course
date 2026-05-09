@@ -47,7 +47,7 @@ def root():
 
 @app.post("/predict")
 def predict(iris: IrisFeatures):
-    data = iris.dict()
+    data = iris.model_dump()
     features = [[data['sepal_length'], data['sepal_width'],
                  data['petal_length'], data['petal_width']]]
     prediction = model.predict(features)

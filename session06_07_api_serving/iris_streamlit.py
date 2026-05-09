@@ -12,7 +12,7 @@ import requests
 def main():
     st.title("Machine Learning Model Deployment – Iris")
 
-    sepal_length = st.slider("Sepal Length (cm)", min_value=0.0, max_value=10.0, value=5.1)
+    sepal_length = st.number_input("Sepal Length (cm)", min_value=0.0, max_value=10.0, value=5.1)
     sepal_width  = st.slider("Sepal Width (cm)",  min_value=0.0, max_value=10.0, value=3.5)
     petal_length = st.slider("Petal Length (cm)", min_value=0.0, max_value=10.0, value=1.4)
     petal_width  = st.slider("Petal Width (cm)",  min_value=0.0, max_value=10.0, value=0.2)
@@ -35,8 +35,7 @@ def make_prediction(features):
         return response.json()['prediction']
     except requests.exceptions.ConnectionError:
         st.error("Cannot connect to FastAPI server. Start it first:\n"
-                 "`uvicorn iris_fastapi:app --reload`\n\n"
-                 "Or use the standalone version: `streamlit run iris_streamlit_standalone.py`")
+                 "`uvicorn iris_fastapi:app --reload`\n")
         return None
 
 
