@@ -1,15 +1,10 @@
 """
-streamlit_app.py
-----------------
 Streamlit UI for the Wine Quality classifier hosted on SageMaker.
 
-Runs on EC2 with the LabInstanceProfile attached. boto3 picks up
-credentials automatically from the instance metadata service (IMDS).
-NO aws_access_key_id ANYWHERE in this file. That is the whole point.
-
-If you remove LabInstanceProfile from the EC2 instance, this app will
-fail with NoCredentialsError. Demo that to your students. It's the
-single most important moment of the session.
+Reads endpoint name and region from environment variables.
+boto3 picks up AWS credentials from:
+  - the EC2 instance profile (when running on EC2 with LabInstanceProfile), OR
+  - ~/.aws/credentials (when running locally)
 """
 
 import json
@@ -20,14 +15,12 @@ import streamlit as st
 from botocore.exceptions import ClientError, NoCredentialsError
 
 
-# Configuration via environment variables (set in EC2 user-data)
 ENDPOINT_NAME = os.environ.get("ENDPOINT_NAME", "wine-xgb-endpoint")
 REGION = os.environ.get("AWS_REGION", "us-east-1")
 
 
 @st.cache_resource
 def get_runtime_client():
-    """One boto3 client for the whole app lifetime."""
     return boto3.client("sagemaker-runtime", region_name=REGION)
 
 
@@ -43,17 +36,15 @@ def invoke_endpoint(features: list[float]) -> dict:
     return json.loads(response["Body"].read().decode("utf-8"))
 
 
-# ---- UI ------------------------------------------------------------------
-st.set_page_config(page_title="Wine Quality Classifier", page_icon=None)
+st.set_page_config(page_title="Wine Quality Classifier")
 st.title("Wine Quality Classifier")
 st.caption(f"Endpoint: `{ENDPOINT_NAME}`  |  Region: `{REGION}`")
 
 st.markdown(
     "Predicts wine quality as **low**, **medium**, or **high** from "
-    "11 physico-chemical features. Model: XGBoost on UCI Wine Quality (red)."
+    "11 physico-chemical features."
 )
 
-# Sensible defaults from the dataset's median values
 col1, col2 = st.columns(2)
 with col1:
     fixed_acidity = st.number_input("Fixed acidity", value=7.4, step=0.1)
@@ -78,9 +69,8 @@ if st.button("Predict", type="primary"):
         result = invoke_endpoint(features)
     except NoCredentialsError:
         st.error(
-            "No AWS credentials found. Is LabInstanceProfile attached to "
-            "this EC2 instance? Detach it and you'll see this error; that's "
-            "the demo."
+            "No AWS credentials found. If running on EC2, attach LabInstanceProfile. "
+            "If running locally, configure ~/.aws/credentials."
         )
     except ClientError as e:
         st.error(f"AWS error: {e.response['Error'].get('Message', str(e))}")
@@ -90,9 +80,6 @@ if st.button("Predict", type="primary"):
 
         st.success(f"Predicted quality: **{label}**")
         st.write("Class probabilities:")
-        st.bar_chart(
-            {"probability": probs},
-            x_label="class (0=low, 1=medium, 2=high)",
-        )
+        st.bar_chart({"probability": probs})
         with st.expander("Raw response"):
             st.json(result)
