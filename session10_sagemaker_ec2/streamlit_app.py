@@ -38,7 +38,6 @@ def invoke_endpoint(features: list[float]) -> dict:
 
 st.set_page_config(page_title="Wine Quality Classifier")
 st.title("Wine Quality Classifier")
-st.caption(f"Endpoint: `{ENDPOINT_NAME}`  |  Region: `{REGION}`")
 
 st.markdown(
     "Predicts wine quality as **low**, **medium**, or **high** from "
@@ -81,5 +80,3 @@ if st.button("Predict", type="primary"):
         st.success(f"Predicted quality: **{label}**")
         st.write("Class probabilities:")
         st.bar_chart({"probability": probs})
-        with st.expander("Raw response"):
-            st.json(result)
