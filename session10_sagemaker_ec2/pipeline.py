@@ -65,6 +65,9 @@ def main() -> None:
         tar.add(model_path, arcname=MODEL_FILENAME)
     print(f"Packaged: {TARBALL_PATH}")
 
+    print("\nNext steps:")
+    print("  Make the s3 bucket with:\n\n  aws s3 mb s3://your-bucket-name --region us-east-1\n\n  and upload with:")
+    print(f"\n  aws s3 cp {TARBALL_PATH} s3://your-bucket-name/wine/model.tar.gz\n")
 
 if __name__ == "__main__":
     main()

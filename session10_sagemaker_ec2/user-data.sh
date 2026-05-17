@@ -7,9 +7,9 @@ set -eu
 
 # -------- EDIT THESE -----------------------------------------------------
 GIT_REPO="https://github.com/<your-handle>/<your-repo>.git"
-SUBFOLDER="${SUBFOLDER:-}"          # path inside repo; leave empty if app at root
+SUBFOLDER=""                  # path inside repo; leave empty if app at root
 APP_FILE="streamlit_app.py"
-ENDPOINT_NAME="wine-xgb-endpoint"
+ENDPOINT_NAME="wine-endpoint"
 # -------------------------------------------------------------------------
 
 REGION="us-east-1"

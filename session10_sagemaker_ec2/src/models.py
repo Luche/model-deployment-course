@@ -1,10 +1,10 @@
 """Build sklearn pipelines for each candidate model.
 
-Each pipeline has the same shape: StandardScaler -> classifier.
+Each pipeline has the same shape: StandardScaler -> classifier except xgb.
 This makes them interchangeable in training, evaluation, and inference.
 
 Standardization is essential for Logistic Regression and KNN (both are
-distance/scale sensitive). It's harmless for tree-based models like XGBoost.
+distance/scale sensitive). XGBoost is a tree-based model and does not require standardization, so we can skip it for that pipeline.
 """
 
 from sklearn.linear_model import LogisticRegression
@@ -19,25 +19,13 @@ def build_pipelines() -> dict[str, Pipeline]:
     return {
         "logistic_regression": Pipeline([
             ("scaler", StandardScaler()),
-            ("clf", LogisticRegression(
-                max_iter=1000,
-                random_state=42,
-            )),
+            ("clf", LogisticRegression(random_state=42)),
         ]),
         "knn": Pipeline([
             ("scaler", StandardScaler()),
             ("clf", KNeighborsClassifier(n_neighbors=15)),
         ]),
         "xgboost": Pipeline([
-            ("scaler", StandardScaler()),
-            ("clf", XGBClassifier(
-                n_estimators=100,
-                max_depth=5,
-                learning_rate=0.1,
-                subsample=0.8,
-                colsample_bytree=0.8,
-                eval_metric="mlogloss",
-                random_state=42,
-            )),
+            ("clf", XGBClassifier(random_state=42)),
         ]),
     }
